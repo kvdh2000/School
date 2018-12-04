@@ -44,7 +44,7 @@ int main()
 		cout << "Unscramble the letters to make a word.\n";
 		cout << "Enter 'hint' for a hint.\n";
 		cout << "Enter 'quit' to quit the game.\n\n";
-		cout << "You start with 50 points, 10 per letter for each correct answer, minus 50 for a hint.";
+		cout << "You start with 50 points, 10 per letter for each correct answer, minus 50 for a hint." << endl;
 		cout << "The jumble is: " << jumble;
 
 		string guess;

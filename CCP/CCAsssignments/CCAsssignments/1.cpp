@@ -5,6 +5,8 @@
 
 using namespace std;
 
+int hw = 1600;
+
 template <class T> struct RGB { T r, g, b; };
 
 template <class T>
@@ -49,53 +51,33 @@ public:
 	PPMImage(const size_t height, const size_t width) : Matrix(height, width) { }
 	void save(const std::string &filename)
 	{
-		//int max_iteration = _rows * _cols;
 		std::ofstream out(filename, std::ios_base::binary);
 		out << "P6" << std::endl << _cols << " " << _rows << std::endl << 255 << std::endl;
 		for (size_t y = 0; y < _rows; y++)
 			for (size_t x = 0; x < _cols; x++)
-				out << _matrix[y][x].r << _matrix[y][x].g << _matrix[y][x].b;
+				out << value(x, y) << value(x, y) << value(x, y);
+	}
+
+	int value(int x, int y) {
+		complex<float> point((float)x / hw - 1.5, (float)y / hw - 0.5);
+		complex<float> z(0, 0);
+		unsigned int nb_iter = 0;
+		while (abs(z) < 2 && nb_iter <= 34) {
+			z = z * z + point;
+			nb_iter++;
+		}
+		if (nb_iter < 10) return 255;
+		else return 0;
 	}
 };
 
-int value(int x, int y, int width, int height) {
-	complex<float> point((float)x / width - 1.5, (float)y / height - 0.5);
-	complex<float> z(0, 0);
-	int nb_iter = 0;
-	while (abs(z) < 2 && nb_iter <= 20) {
-		z = z * z + point;
-		nb_iter++;
-	}
-	if (nb_iter < 20)
-		return (225 * nb_iter) / 20;
-	else
-		return 0;
-}
 
 int main()
 {
-	const unsigned width = 1600;
-	const unsigned height = 1600;
+	const unsigned width = hw;
+	const unsigned height = hw;
 
-	//PPMImage image(height, width);
-
-	ofstream my_Image("mandelbrot.ppm");
-
-	if (my_Image.is_open()) {
-		my_Image << "P3\n" << width << " " << height << " 255\n";
-		for (int i = 0; i < width; i++) {
-			for (int j = 0; j < height; j++) 
-			{
-				int val = value(i, j, width, height);
-				my_Image << val << ' ' << 0 << ' ' << 70 << "\n";
-			}
-		}
-		my_Image.close();
-	}
-	else
-		cout << "Could not open the file";
-
-
+	PPMImage image(height, width);
 
 	/*
 	image[y][x].r = image[y][x].g = image[y][x].b = 255; // white pixel
@@ -108,7 +90,7 @@ int main()
 	image[y][x].b = 0;
 	*/
 		
-	//	image.save("mandelbrot.ppm");
+	image.save("mandelbrot.ppm");
 	return 0;
 	
 }
