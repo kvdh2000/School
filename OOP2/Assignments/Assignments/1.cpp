@@ -1,7 +1,7 @@
-
+/*
 #include <iostream>
 using namespace std;
-/*
+
 int main()
 {
 	cout << "Seven divided by three is " << 7 / 3 << endl;

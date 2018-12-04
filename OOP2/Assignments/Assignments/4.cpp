@@ -1,4 +1,4 @@
-
+/*
 #include <iostream>
 #include <cstdlib>
 #include <ctime>
@@ -50,7 +50,7 @@ int newNmr(char c)
 
 	return nmr;
 }
-/*
+
 int main()
 {
 	srand(static_cast<unsigned int>(time(0)));

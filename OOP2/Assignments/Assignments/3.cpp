@@ -1,8 +1,8 @@
-
+/*
 #include <iostream>
 #include <string>
 using namespace std;
-/*
+
 int main()
 {
 	enum difficulty { Easy = 1, Normal, Hard };

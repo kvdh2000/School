@@ -1,0 +1,3 @@
+﻿  1.cpp
+d:\github\school\ccp\ccasssignments\ccasssignments\1.cpp(62): warning C4244: 'argument': conversion from 'double' to 'const std::complex<float>::_Ty', possible loss of data
+  CCAsssignments.vcxproj -> D:\GitHub\School\CCP\CCAsssignments\Debug\CCAsssignments.exe

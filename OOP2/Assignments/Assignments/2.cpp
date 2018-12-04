@@ -1,6 +1,7 @@
+/*
 #include <iostream>
 using namespace std;
-/*
+
 int main()
 {
 	short number1, number2, number3, result;

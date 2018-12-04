@@ -1,4 +1,4 @@
-
+/*
 #include <iostream>
 #include <string>
 #include <cstdlib>
@@ -19,57 +19,67 @@ int main()
 		{"jumble", "It's what the game is all about."}
 	};
 
-	int score = 0;
+	int score = 50;
+	char replay;
 
-	srand(static_cast<unsigned int>(time(0)));
-	int choice = (rand() % NUM_WORDS);
-	string theWord = WORDS[choice][WORD];  // word to guess
-	string theHint = WORDS[choice][HINT];  // hint for word
-
-	string jumble = theWord;  // jumbled version of word
-	int length = jumble.size();
-	for (int i = 0; i < length; ++i)
+	do
 	{
-		int index1 = (rand() % length);
-		int index2 = (rand() % length);
-		char temp = jumble[index1];
-		jumble[index1] = jumble[index2];
-		jumble[index2] = temp;
-	}
+		srand(static_cast<unsigned int>(time(0)));
+		int choice = (rand() % NUM_WORDS);
+		string theWord = WORDS[choice][WORD];  // word to guess
+		string theHint = WORDS[choice][HINT];  // hint for word
 
-	cout << "\t\t\tWelcome to Word Jumble!\n\n";
-	cout << "Unscramble the letters to make a word.\n";
-	cout << "Enter 'hint' for a hint.\n";
-	cout << "Enter 'quit' to quit the game.\n\n";
-	cout << "The jumble is: " << jumble;
-
-	string guess;
-	cout << "\n\nYour guess: ";
-	cin >> guess;
-
-	while ((guess != theWord) && (guess != "quit"))
-	{
-		if (guess == "hint")
+		string jumble = theWord;  // jumbled version of word
+		int length = jumble.size();
+		for (int i = 0; i < length; ++i)
 		{
-			cout << theHint;
-		}
-		else
-		{
-			cout << "Sorry, that's not it.";
+			int index1 = (rand() % length);
+			int index2 = (rand() % length);
+			char temp = jumble[index1];
+			jumble[index1] = jumble[index2];
+			jumble[index2] = temp;
 		}
 
+		cout << "\t\t\tWelcome to Word Jumble!\n\n";
+		cout << "Unscramble the letters to make a word.\n";
+		cout << "Enter 'hint' for a hint.\n";
+		cout << "Enter 'quit' to quit the game.\n\n";
+		cout << "You start with 50 points, 10 per letter for each correct answer, minus 50 for a hint.";
+		cout << "The jumble is: " << jumble;
+
+		string guess;
 		cout << "\n\nYour guess: ";
 		cin >> guess;
-	}
 
-	if (guess == theWord)
-	{
-		cout << "\nThat's it!  You guessed it!\n";
-	}
+		while ((guess != theWord) && (guess != "quit"))
+		{
+			if (guess == "hint")
+			{
+				cout << theHint;
+				score -= 50;
+			}
+			else
+			{
+				cout << "Sorry, that's not it.";
+			}
 
-	cout << "Do you wanna play again? (y/n)" << endl;
+			cout << "\n\nYour guess: ";
+			cin >> guess;
+		}
+
+		if (guess == theWord)
+		{
+			cout << "\nThat's it!  You guessed it!\n";
+			score += (10 * length);
+		}
+
+		cout << "Your score is " << score << endl << endl;
+		cout << "Do you wanna play again? (y/n)" << endl;
+		cin >> replay;
+	} while (replay != 'n');
 
 	cout << "\nThanks for playing.\n";
 
 	return 0;
 }
+*/
