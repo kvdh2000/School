@@ -1,2 +1,8 @@
 ﻿  1.cpp
+d:\github\school\algoritmiek\algoritmiek\algoritmiek\1.cpp(40): warning C4244: '=': conversion from '_Rep' to 'int', possible loss of data
+          with
+          [
+              _Rep=__int64
+          ]
+d:\github\school\algoritmiek\algoritmiek\algoritmiek\1.cpp(16): warning C4101: 'yn': unreferenced local variable
   Algoritmiek.vcxproj -> D:\GitHub\School\Algoritmiek\Algoritmiek\Debug\Algoritmiek.exe
