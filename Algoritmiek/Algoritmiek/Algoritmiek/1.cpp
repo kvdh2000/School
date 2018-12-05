@@ -1,4 +1,4 @@
-
+/*
 #include <iostream>
 #include <algorithm>
 #include <array>
@@ -51,3 +51,4 @@ int main()
 
 	return 0;
 }
+*/

@@ -14,5 +14,13 @@
     <ClCompile Include="1.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="2.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="2.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
