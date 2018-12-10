@@ -4,6 +4,8 @@
 #define h2
 
 #include <array>
+#include <list>
+#include <queue>
 #include <vector>
 #include <iostream>
 #include <functional>

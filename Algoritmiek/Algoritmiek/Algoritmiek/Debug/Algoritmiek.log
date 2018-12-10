@@ -1,2 +1,9 @@
 ﻿  2.cpp
-  Algoritmiek.vcxproj -> D:\GitHub\School\Algoritmiek\Algoritmiek\Debug\Algoritmiek.exe
+d:\github\school\algoritmiek\algoritmiek\algoritmiek\2.cpp(60): error C3078: array size must be specified in new expressions
+d:\github\school\algoritmiek\algoritmiek\algoritmiek\2.cpp(63): error C3078: array size must be specified in new expressions
+d:\github\school\algoritmiek\algoritmiek\algoritmiek\2.cpp(87): error C2440: 'return': cannot convert from 'std::queue<int,std::deque<_Ty,std::allocator<_Ty>>>' to 'std::vector<Vertex,std::allocator<char>>'
+          with
+          [
+              _Ty=int
+          ]
+  d:\github\school\algoritmiek\algoritmiek\algoritmiek\2.cpp(87): note: No user-defined-conversion operator available that can perform this conversion, or the operator cannot be called
