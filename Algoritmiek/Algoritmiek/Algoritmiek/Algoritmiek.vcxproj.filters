@@ -17,9 +17,18 @@
     <ClCompile Include="2.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="4.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="4_mc.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="2.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="4.h">
       <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>

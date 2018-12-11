@@ -1,5 +1,4 @@
 
-
 #ifndef h2
 #define h2
 
@@ -12,6 +11,7 @@
 #include <stack>
 #include <set>
 #include <map>
+#include <deque>
 
 using Vertex = char;
 using Path = std::vector<Vertex>;

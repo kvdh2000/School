@@ -1,6 +1,8 @@
 
 #include "2.h"
 
+using namespace std;
+
 typename std::vector<Vertex>::const_iterator Graph::cbegin(Vertex v) const
 {
 	currentVertex = v;
@@ -57,7 +59,46 @@ Path dfs(const Graph &graph, const Vertex &start, std::function<bool(const Verte
 
 Path bfs(const Graph &graph, const Vertex &start, std::function<bool(const Vertex &vertex)> goalTest)
 {
+	std::deque<Path> queue;
+	std::set<Vertex> visited;
+	Path path;
 
+	queue.push_back(path);
+
+	while (!queue.empty()) 
+	{
+		path = queue.front();
+		queue.pop_front();
+
+		Vertex last;
+
+		if (path.size() == 0) 
+		{
+			last = start;
+		}
+
+		else  
+		{
+			last = path.back();
+		}
+
+		if (goalTest(last))
+			return path; 
+		
+		for (auto it = graph.cbegin(last); it != graph.cend(); it++)
+		{ // extend path with new Vertex
+			Path n = path;
+			if (visited.find(last) == visited.end())
+			{
+				n.push_back(*it);
+				queue.push_back(n);
+			}
+
+		}
+
+		visited.insert(last);
+	}
+	return Path();
 }
 
 int main()
@@ -67,8 +108,8 @@ int main()
 	Vertex start = 'S';
 	Vertex goal = 'G';
 
-	Path path = dfs(graph, start, [&](Vertex v) { return (v == goal); });
-	//    Path path = bfs(graph, start, [&](Vertex v) { return (v == goal); });
+	//Path path = dfs(graph, start, [&](Vertex v) { return (v == goal); });
+	Path path = bfs(graph, start, [&](Vertex v) { return (v == goal); });
 
 	std::cout << start << std::endl;
 	for (auto it = path.cbegin(); it != path.cend(); it++)
