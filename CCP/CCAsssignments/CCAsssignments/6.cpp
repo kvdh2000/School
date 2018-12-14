@@ -1,20 +1,20 @@
-/*
+
+
 #include <thread>
 #include <mutex>
 #include <iostream>
 #include <vector>
 #include <deque>
-#include <atomic>
+#include <condition_variable>
+#include<atomic>
+
+std::condition_variable ready_cond;
+std::atomic<bool> ready(false);
 
 class ThreadPool;
 
-// forward declare
-std::condition_variable ready_cv;
-std::condition_variable processed_cv;
-std::atomic<bool> ready(false);
-std::atomic<bool> processed(false);
-
-class Worker {
+class Worker
+{
 public:
 	Worker(ThreadPool &s) : pool(s) { }
 	void operator()();
@@ -22,7 +22,8 @@ private:
 	ThreadPool &pool;
 };
 
-class ThreadPool {
+class ThreadPool
+{
 public:
 	ThreadPool(size_t threads);
 	template<class F> void enqueue(F f);
@@ -41,60 +42,75 @@ void Worker::operator()()
 {
 	std::function<void()> task;
 
-	// in real life you need a variable here like while(!quitProgram) or your
-	// program will never return. Similarly, in real life always use `wait_for`
-	// instead of `wait` so that periodically you check to see if you should
-	// exit the program
 	while (true)
 	{
 		std::unique_lock<std::mutex> locker(pool.queue_mutex);
-		ready_cv.wait(locker, [] {return ready.load(); });
+		ready_cond.wait(locker, [] {return ready.load(); });
+		ready = false;
 
-		if (pool.stop) return;
+		if (pool.stop)
+		{
+			return;
+		}
+
 		if (!pool.tasks.empty())
 		{
 			task = pool.tasks.front();
 			pool.tasks.pop_front();
 			locker.unlock();
 			task();
-			processed = true;
-			processed_cv.notify_one();
+
+			
+			ready_cond.notify_one();
+			ready = true;
 		}
+
 	}
 }
 
 ThreadPool::ThreadPool(size_t threads) : stop(false)
 {
 	for (size_t i = 0; i < threads; ++i)
+	{
 		workers.push_back(std::thread(Worker(*this)));
+	}
 }
 
 ThreadPool::~ThreadPool()
 {
 	stop = true; // stop all threads
+	ready_cond.notify_all();
 
 	for (auto &thread : workers)
+	{
 		thread.join();
+	}
 }
 
 template<class F>
+
 void ThreadPool::enqueue(F f)
 {
 	std::unique_lock<std::mutex> lock(queue_mutex);
 	tasks.push_back(std::function<void()>(f));
-	processed = false;
+
 	ready = true;
-	ready_cv.notify_one();
-	processed_cv.wait(lock, [] { return processed.load(); });
+	ready_cond.notify_one();
 }
 
 int main()
 {
 	ThreadPool pool(4);
 
-	for (int i = 0; i < 8; ++i) pool.enqueue([i]() { std::cout << "Text printed by worker " << i << std::endl; });
+	// queue a bunch of "work items"
+	for (int i = 0; i < 8; ++i)
+	{
+		pool.enqueue([i]() { std::cout << "Hello from work item " << i << std::endl; });
+	}
 
+	// wait for keypress to give worker threads the opportunity to finish tasks
 	std::cin.ignore();
+
 	return 0;
 }
-*/
+ 

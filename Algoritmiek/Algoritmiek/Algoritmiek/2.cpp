@@ -1,4 +1,4 @@
-
+/*
 #include "2.h"
 
 using namespace std;
@@ -88,7 +88,7 @@ Path bfs(const Graph &graph, const Vertex &start, std::function<bool(const Verte
 		for (auto it = graph.cbegin(last); it != graph.cend(); it++)
 		{ // extend path with new Vertex
 			Path n = path;
-			if (visited.find(last) == visited.end())
+			if (visited.find(*it) == visited.end())
 			{
 				n.push_back(*it);
 				queue.push_back(n);
@@ -119,3 +119,4 @@ int main()
 
 	return 0;
 }
+*/

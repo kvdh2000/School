@@ -1,2 +1,8 @@
-﻿  2.cpp
+﻿  3.cpp
+d:\github\school\algoritmiek\algoritmiek\algoritmiek\3.cpp(81): warning C4806: '==': unsafe operation: no value of type 'bool' promoted to type 'int' can equal the given constant
+d:\github\school\algoritmiek\algoritmiek\algoritmiek\3.cpp(86): warning C4806: '==': unsafe operation: no value of type 'bool' promoted to type 'int' can equal the given constant
+d:\github\school\algoritmiek\algoritmiek\algoritmiek\3.cpp(94): warning C4806: '==': unsafe operation: no value of type 'bool' promoted to type 'int' can equal the given constant
+d:\github\school\algoritmiek\algoritmiek\algoritmiek\3.cpp(99): warning C4806: '==': unsafe operation: no value of type 'bool' promoted to type 'int' can equal the given constant
+d:\github\school\algoritmiek\algoritmiek\algoritmiek\3.cpp(107): warning C4806: '==': unsafe operation: no value of type 'bool' promoted to type 'int' can equal the given constant
+d:\github\school\algoritmiek\algoritmiek\algoritmiek\3.cpp(112): warning C4806: '==': unsafe operation: no value of type 'bool' promoted to type 'int' can equal the given constant
   Algoritmiek.vcxproj -> D:\GitHub\School\Algoritmiek\Algoritmiek\Debug\Algoritmiek.exe

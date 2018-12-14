@@ -17,10 +17,19 @@
     <ClCompile Include="2.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="4_mc.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="4.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="4_mc.cpp">
+    <ClCompile Include="peggame.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="8puzzle.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="3.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -29,6 +38,15 @@
       <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="4.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="peggame.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="8puzzle.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="3.h">
       <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>
