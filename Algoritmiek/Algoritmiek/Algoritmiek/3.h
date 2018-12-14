@@ -1,6 +1,6 @@
 
-#ifndef _8PUZZLE_H
-#define _8PUZZLE_H
+#ifndef _3_H
+#define _3_h
 
 #include <array>
 #include <vector>
@@ -26,9 +26,8 @@ private:
 
 std::ostream &operator<<(std::ostream &os, const Vertex &state);
 
-Vertex doMove(const Vertex &v, const Move &m, int r, int c);
+Vertex doMove(const Vertex &v, const Move &m, int ro, int co);
 Path dfs(const Graph &graph, const Vertex &start, std::function<bool(const Vertex &vertex)> goalTest);
 Path bfs(const Graph &graph, const Vertex &start, std::function<bool(const Vertex &vertex)> goalTest);
 
-#endif // _8PUZZLE_H
-
+#endif 

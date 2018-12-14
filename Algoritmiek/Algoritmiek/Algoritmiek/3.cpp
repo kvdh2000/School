@@ -126,24 +126,18 @@ typename std::vector<Vertex>::const_iterator Graph::cend() const
 	return adjacents.cend();
 }
 
-Vertex doMove(const Vertex &v, const Move &m, int r, int c)
+Vertex doMove(const Vertex &v, const Move &m, int ro, int co)
 {
 	bool done=false;
 	Vertex n = v;
 
-	for (int r = 0; r < sizes && !done; r++)
+	switch (m) 
 	{
-		for (int c = 0; c < sizes && !done; c++)
-		{
-			if (v[r][c] == 0) {
-				switch(m) {
-					case Move::a: std::swap(n[r][c], n[r][c+1]); done = true; break;
-					case Move::b: std::swap(n[r][c], n[r][c-1]); done = true; break;
-					case Move::c: std::swap(n[r+1][c], n[r][c]); done = true; break;
-				}
-			}
-		}
+		case Move::a: std::swap(n[ro][co], n[0][0]); done = true; break;
+		case Move::b: std::swap(n[ro][co], n[0][0]); done = true; break;
+		case Move::c: std::swap(n[ro][co], n[0][0]); done = true; break;
 	}
+
 	return n;
 }
 
@@ -153,15 +147,7 @@ std::ostream &operator<<(std::ostream &os, const Vertex &state)
 	{
 		for (int c = 0; c < sizes; c++) 
 		{
-			if (state[r][c] != 0) 
-			{
-				os << state[r][c];
-			} 
-			
-			else 
-			{
-				os << " ";
-			}
+			os << state[r][c];
 		}
 		os << std::endl;
 	}
