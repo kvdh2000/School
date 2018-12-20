@@ -1,5 +1,4 @@
 /*
-
 #include "8puzzle.h"
 
 typename std::vector<Vertex>::const_iterator Graph::cbegin(Vertex v) const

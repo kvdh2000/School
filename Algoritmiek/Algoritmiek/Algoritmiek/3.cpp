@@ -1,15 +1,15 @@
 
 #include "3.h"
 
-int sizes = 3;
-
 typename std::vector<Vertex>::const_iterator Graph::cbegin(Vertex v) const
 {
 	adjacents.clear();
 
-	for (int r = 0; r < sizes; r++) 
+	adjacents.push_back(doMove(v, Move::b, 0, 2));
+
+	for (int r = 0; r < 3; r++) 
 	{
-		for (int c = 0; c < sizes; c++) 
+		for (int c = 0; c < 3; c++) 
 		{
 			if (v[r][c] == 1) 
 			{
@@ -34,84 +34,90 @@ typename std::vector<Vertex>::const_iterator Graph::cbegin(Vertex v) const
 
 			if (v[r][c] == 2)
 			{
-				if (r == 0)
+				if (!v[r][c + 1] == 1)
 				{
-					if (!v[1][0] == 1 || !v[1][1] == 1)
+					if (r == 0)
 					{
-						adjacents.push_back(doMove(v, Move::b, r, c));
+						if (!v[1][2] == 1)
+						{
+							adjacents.push_back(doMove(v, Move::b, r, c));
+						}
+
+						if (!v[2][2] == 1)
+						{
+							adjacents.push_back(doMove(v, Move::c, r, c));
+						}
 					}
 
-					if (!v[2][0] == 1 || !v[2][1] == 1)
+					if (r == 1)
 					{
-						adjacents.push_back(doMove(v, Move::c, r, c));
-					}
-				}
+						if (!v[0][2] == 1)
+						{
+							adjacents.push_back(doMove(v, Move::a, r, c));
+						}
 
-				if (r == 1)
-				{
-					if (!v[0][0] == 1 || !v[0][1] == 1)
-					{
-						adjacents.push_back(doMove(v, Move::a, r, c));
-					}
-
-					if (!v[2][0] == 1 || !v[2][1] == 1)
-					{
-						adjacents.push_back(doMove(v, Move::c, r, c));
-					}
-				}
-
-				if (r == 2)
-				{
-					if (!v[0][0] == 1 || !v[0][1] == 1)
-					{
-						adjacents.push_back(doMove(v, Move::a, r, c));
+						if (!v[2][2] == 1)
+						{
+							adjacents.push_back(doMove(v, Move::c, r, c));
+						}
 					}
 
-					if (!v[1][0] == 1 || !v[1][1] == 1)
+					if (r == 2)
 					{
-						adjacents.push_back(doMove(v, Move::b, r, c));
+						if (!v[0][2] == 1)
+						{
+							adjacents.push_back(doMove(v, Move::a, r, c));
+						}
+
+						if (!v[1][2] == 1)
+						{
+							adjacents.push_back(doMove(v, Move::b, r, c));
+						}
 					}
 				}
 			}
 
 			if (v[r][c] == 3)
 			{
-				if (r == 0)
+				if (v[r][c + 1] == 0 && v[r][c + 2] == 0)
 				{
-					if (!v[1][0] == 1 || !v[1][1] == 1 || !v[1][0] == 2 || !v[1][1] == 2)
+					if (r == 0)
 					{
-						adjacents.push_back(doMove(v, Move::b, r, c));
+						if (!v[1][2] == 1 || !v[1][1] == 2)
+						{
+							adjacents.push_back(doMove(v, Move::b, r, c));
+						}
+
+						if (!v[2][2] == 1 || !v[2][1] == 2)
+						{
+							adjacents.push_back(doMove(v, Move::c, r, c));
+						}
 					}
 
-					if (!v[2][0] == 1 || !v[2][1] == 1 || !v[2][0] == 2 || !v[2][1] == 2)
+					if (r == 1)
 					{
-						adjacents.push_back(doMove(v, Move::c, r, c));
-					}
-				}
+						if (!v[0][2] == 1 || !v[0][1] == 2)
+						{
+							adjacents.push_back(doMove(v, Move::a, r, c));
+						}
 
-				if (r == 1)
-				{
-					if (!v[0][0] == 1 || !v[0][1] == 1 || !v[0][0] == 2 || !v[0][1] == 2)
-					{
-						adjacents.push_back(doMove(v, Move::a, r, c));
-					}
-
-					if (!v[2][0] == 1 || !v[2][1] == 1 || !v[2][0] == 2 || !v[2][1] == 2)
-					{
-						adjacents.push_back(doMove(v, Move::c, r, c));
-					}
-				}
-
-				if (r == 2)
-				{
-					if (!v[0][0] == 1 || !v[0][1] == 1 || !v[0][0] == 2 || !v[0][1] == 2)
-					{
-						adjacents.push_back(doMove(v, Move::a, r, c));
+						if (!v[2][2] == 1 || !v[2][1] == 2)
+						{
+							adjacents.push_back(doMove(v, Move::c, r, c));
+						}
 					}
 
-					if (!v[1][0] == 1 || !v[1][1] == 1 || !v[1][0] == 2 || !v[1][1] == 2)
+					if (r == 2)
 					{
-						adjacents.push_back(doMove(v, Move::b, r, c));
+						if (!v[0][2] == 1 || !v[0][1] == 2)
+						{
+							adjacents.push_back(doMove(v, Move::a, r, c));
+						}
+
+						if (!v[1][2] == 1 || !v[1][1] == 2)
+						{
+							adjacents.push_back(doMove(v, Move::b, r, c));
+						}
 					}
 				}
 			}
@@ -131,11 +137,15 @@ Vertex doMove(const Vertex &v, const Move &m, int ro, int co)
 	bool done=false;
 	Vertex n = v;
 
-	switch (m) 
-	{
-		case Move::a: std::swap(n[ro][co], n[0][0]); done = true; break;
-		case Move::b: std::swap(n[ro][co], n[0][0]); done = true; break;
-		case Move::c: std::swap(n[ro][co], n[0][0]); done = true; break;
+	for (int r = 0; r < 3 && !done; r++) {
+		for (int c = 0; c < 3 && !done; c++) {
+				switch (m)
+				{
+				case Move::a: std::swap(n[ro][co], n[0][co]); done = true; break;
+				case Move::b: std::swap(n[ro][co], n[1][co]); done = true; break;
+				case Move::c: std::swap(n[ro][co], n[2][co]); done = true; break;
+				}
+		}
 	}
 
 	return n;
@@ -143,9 +153,9 @@ Vertex doMove(const Vertex &v, const Move &m, int ro, int co)
 
 std::ostream &operator<<(std::ostream &os, const Vertex &state)
 {
-	for (int r = 0; r < sizes; r++) 
+	for (int r = 0; r < 3; r++) 
 	{
-		for (int c = 0; c < sizes; c++) 
+		for (int c = 0; c < 3; c++) 
 		{
 			os << state[r][c];
 		}
@@ -227,7 +237,7 @@ Path bfs(const Graph &graph, const Vertex &start, std::function<bool(const Verte
 		for (auto it = graph.cbegin(last); it != graph.cend(); it++)
 		{ // extend path with new Vertex
 			Path n = path;
-			if (visited.find(last) == visited.end())
+			if (visited.find(*it) == visited.end())
 			{
 				n.push_back(*it);
 				queue.push_back(n);
@@ -249,7 +259,7 @@ int main()
 		{{0, 0, 0}},
 		{{0, 0, 0}},
 	}};
-
+	
 	Vertex goal = {{
 		{{0, 0, 0}},
 		{{0, 0, 0}},
