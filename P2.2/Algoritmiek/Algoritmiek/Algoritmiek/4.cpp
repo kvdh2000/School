@@ -69,9 +69,12 @@ Player getWinner(const State &state)
 std::vector<Move> getMoves(const State &state)
 {
     std::vector<Move> moves;
-    if (getWinner(state) == Player::None) {
-        for (int i=0; i<9; i++) {
-            if (state[i] == Player::None) {
+    if (getWinner(state) == Player::None) 
+	{
+        for (int i=0; i<9; i++) 
+		{
+            if (state[i] == Player::None) 
+			{
                 moves.push_back(i);
             }
         }

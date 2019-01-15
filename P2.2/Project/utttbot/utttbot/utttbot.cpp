@@ -8,24 +8,37 @@
 
 void UTTTBot::run() {
 	std::string line;
-	while (std::getline(std::cin, line)) {
+	while (std::getline(std::cin, line)) 
+	{
 		std::vector<std::string> command = split(line, ' ');
-		if (command[0] == "settings") {
+
+		if (command[0] == "settings") 
+		{
 			setting(command[1], command[2]);
-		} else if (command[0] == "update" && command[1] == "game") {
+		} 
+
+		else if (command[0] == "update" && command[1] == "game") 
+		{
 			update(command[2], command[3]);
-		} else if (command[0] == "action" && command[1] == "move") {
+		} 
+
+		else if (command[0] == "action" && command[1] == "move") 
+		{
 			move(std::stoi(command[2]));
-		} else {
+		} 
+
+		else 
+		{
 			std::cerr << "Unknown command: " << line << std::endl;
 		}
 	}
 }
 
-void UTTTBot::move(int timeout) {
+void UTTTBot::move(int timeout) 
+{
 	// Do something more intelligent here than return a random move
 	std::vector<Move> moves = getMoves(state);
-	std::cout << "place_disc " << *select_randomly(moves.begin(), moves.end()) << std::endl;
+	std::cout << "place_disc " << *select_move(moves.begin(), moves.end()) << std::endl;
 }
 
 void UTTTBot::update(std::string &key, std::string &value) {

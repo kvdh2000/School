@@ -1,4 +1,4 @@
-
+/*
 #include "3.h"
 
 typename std::vector<Vertex>::const_iterator Graph::cbegin(Vertex v) const
@@ -276,3 +276,4 @@ int main()
 
 	return 0;
 }
+*/
