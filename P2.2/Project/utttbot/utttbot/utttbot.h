@@ -27,9 +27,11 @@ class UTTTBot {
 	Move mcMove(State &board);
 	Move getBestMove(State &board);
 	State mcTrial(const State &board);
-	//void mcUpdateScores(array<int, 9> &subscores, State &trialboard, Player &winner);
-	//int getX(int i);
-	//int getY(int i);
+	void mcUpdateScores(State &trialboard, Player &winner);
+	int getX(int i);
+	int getY(int i);
+	void findAMB(State &board);
+	void foundit(int x, int y);
 
 public:
 	void run();

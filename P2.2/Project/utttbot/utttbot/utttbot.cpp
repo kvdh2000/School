@@ -9,8 +9,11 @@
 using namespace std;
 
 array<int, 9> scores = { 0,0,0,0,0,0,0,0,0 };
+int activemb = 0;
+int ex = 0;
+int ey = 0;
 
-int getX(int i)
+int UTTTBot::getX(int i)
 {
 	if (i < 3)
 		return 0;
@@ -20,7 +23,7 @@ int getX(int i)
 		return 2;
 }
 
-int getY(int i)
+int UTTTBot::getY(int i)
 {
 	if (i == 0 || i == 3 || i == 6)
 		return 0;
@@ -28,6 +31,144 @@ int getY(int i)
 		return 1;
 	else
 		return 2;
+}
+
+void UTTTBot::findAMB(State &board)
+{
+	for (int x = 0; x < 9; x++)
+	{
+		for (int y = 0; y < 9; y++)
+		{
+			if (board.board[x][y] == Player::Active)
+			{
+				foundit(y, x);
+				break;
+			}
+		}
+	}
+}
+
+void UTTTBot::foundit(int x, int y)
+{
+	if (x < 3)
+	{
+		if (y < 3)
+		{
+			activemb = 0;
+		}
+
+		if (2 < y < 6)
+		{
+			activemb = 1;
+		}
+
+		if (5 < y < 9)
+		{
+			activemb = 2;
+		}
+	}
+
+	if (2 < x < 6)
+	{
+		if (y < 3)
+		{
+			activemb = 3;
+		}
+
+		if (2 < y < 6)
+		{
+			activemb = 4;
+		}
+
+		if (5 < y < 9)
+		{
+			activemb = 5;
+		}
+	}
+
+	if (5 < x < 9)
+	{
+		if (y < 3)
+		{
+			activemb = 6;
+		}
+
+		if (2 < y < 6)
+		{
+			activemb = 7;
+		}
+
+		if (5 < y < 9)
+		{
+			activemb = 8;
+		}
+	}
+
+	switch(activemb)
+	{
+		case 0:
+		{
+			ex = 0;
+			ey = 0;
+			break;
+		}
+
+		case 1:
+		{
+			ex = 3;
+			ey = 0;
+			break;
+		}
+		
+		case 2:
+		{
+			ex = 6;
+			ey = 0;
+			break;
+		}
+
+		case 3:
+		{
+			ex = 0;
+			ey = 3;
+			break;
+		}
+
+		case 4:
+		{
+			ex = 3;
+			ey = 3;
+			break;
+		}
+
+		case 5:
+		{
+			ex = 6;
+			ey = 3;
+			break;
+		}
+
+		case 6:
+		{
+			ex = 0;
+			ey = 6;
+			break;
+		}
+
+		case 7:
+		{
+			ex = 3;
+			ey = 6;
+			break;
+		}
+
+		case 8:
+		{
+			ex = 6;
+			ey = 6;
+			break;
+		}
+	}
 }
 
 void UTTTBot::run() 
@@ -61,21 +202,23 @@ void UTTTBot::run()
 }
 
 
-void mcUpdateScores(array<int, 9> &subscores, State &trialboard, Player &winner)
+void UTTTBot::mcUpdateScores(State &trialboard, Player &winner)
 {
+	array<int, 9> subscores = { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+
 	for (int i = 0; i < 9; i++)
 	{
-		int x = getX(i);
-		int y = getY(i);
+		int x = getY(i);
+		int y = getX(i);
 
 		if (winner == Player::X)
 		{
-			if (trialboard.macroboard[x][y] == Player::X)
+			if (trialboard.board[x + ex][y + ey] == Player::X)
 			{
 				subscores[i]++;
 			}
 
-			if (trialboard.macroboard[x][y] == Player::O)
+			if (trialboard.board[x + ex][y + ey] == Player::O)
 			{
 				subscores[i]--;
 			}
@@ -83,12 +226,12 @@ void mcUpdateScores(array<int, 9> &subscores, State &trialboard, Player &winner)
 
 		if (winner == Player::O)
 		{
-			if (trialboard.macroboard[x][y] == Player::X)
+			if (trialboard.board[x + ex][y + ey] == Player::X)
 			{
 				subscores[i]--;
 			}
 
-			if (trialboard.macroboard[x][y] == Player::O)
+			if (trialboard.board[x + ex][y + ey] == Player::O)
 			{
 				subscores[i]++;
 			}
@@ -105,7 +248,7 @@ void mcUpdateScores(array<int, 9> &subscores, State &trialboard, Player &winner)
 State UTTTBot::mcTrial(const State &board)
 {
 	State trialboard = board;
-	array<int, 9> subscores = { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+	
 	Player winner;
 
 	vector<Move> moves = getMoves(trialboard);
@@ -118,7 +261,7 @@ State UTTTBot::mcTrial(const State &board)
 
 	winner = getWinner(trialboard);
 
-	mcUpdateScores(subscores, trialboard, winner);
+	mcUpdateScores(trialboard, winner);
 
 
 	return board;
@@ -126,34 +269,35 @@ State UTTTBot::mcTrial(const State &board)
 
 Move UTTTBot::getBestMove(State &board)
 {
-	int highest = -9999;
-	int index = -1;
+	int highest = -999999;
 
-	int dx, dy;
+	int dx = -99999;
+	int dy = -99999;
+	
+	
 	for (int i = 0; i < 9; i++)
 	{
-		int x = getX(i);
-		int y = getY(i);
+		int x = getY(i);
+		int y = getX(i);
 
-		if (scores[i] > highest && board.macroboard[x][y] == Player::None)
+		if (scores[i] > highest && board.board[x + ex][y + ey] == Player::Active)
 		{
 			highest = scores[i];
-			index = i;
-			dx = x;
-			dy = y;
+			dx = x + ex;
+			dy = y + ey;
 		}
 	}
 
-	Move wut = { dx, dy };
-
-	return wut;
+	return { dx, dy };
 }
 
 Move UTTTBot::mcMove(State &board)
 {
 	scores = { 0,0,0,0,0,0,0,0,0 };
 
-	for (int i = 0; i < 20; i++)
+	findAMB(board);
+
+	for (int i = 0; i < 10000; i++)
 	{
 		board = mcTrial(board);
 	}
@@ -164,9 +308,10 @@ Move UTTTBot::mcMove(State &board)
 void UTTTBot::move(int timeout) 
 {
 	// Do something more intelligent here than return a random move
-	//std::vector<Move> moves = getMoves(state);
+	//vector<Move> moves = getMoves(state);
+	//moves.push_back(mcMove(state));
 	Move theMove = mcMove(state);
-	//std::cout << "place_disc " << *select_move(moves.begin(), moves.end()) << std::endl;
+	//std::cout << "place_disc " << *(moves.end() - 1) << std::endl;
 	std::cout << "place_disc " << theMove << std::endl;
 }
 
