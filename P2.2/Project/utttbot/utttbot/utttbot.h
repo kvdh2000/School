@@ -6,6 +6,7 @@
 
 #include <string>
 #include <vector>
+#include <array>
 
 #include "uttt.h"
 
@@ -23,6 +24,12 @@ class UTTTBot {
 	void setting(std::string &key, std::string &value);
 	void update(std::string &key, std::string &value);
 	void move(int timeout);
+	Move mcMove(State &board);
+	Move getBestMove(State &board);
+	State mcTrial(const State &board);
+	//void mcUpdateScores(array<int, 9> &subscores, State &trialboard, Player &winner);
+	//int getX(int i);
+	//int getY(int i);
 
 public:
 	void run();

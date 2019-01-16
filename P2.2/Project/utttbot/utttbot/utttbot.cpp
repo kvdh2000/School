@@ -6,8 +6,34 @@
 #include <iostream>
 #include <sstream>
 
-void UTTTBot::run() {
+using namespace std;
+
+array<int, 9> scores = { 0,0,0,0,0,0,0,0,0 };
+
+int getX(int i)
+{
+	if (i < 3)
+		return 0;
+	if (i < 6)
+		return 1;
+	else
+		return 2;
+}
+
+int getY(int i)
+{
+	if (i == 0 || i == 3 || i == 6)
+		return 0;
+	if (i ==1 || i == 4 || i == 7)
+		return 1;
+	else
+		return 2;
+}
+
+void UTTTBot::run() 
+{
 	std::string line;
+
 	while (std::getline(std::cin, line)) 
 	{
 		std::vector<std::string> command = split(line, ' ');
@@ -34,11 +60,114 @@ void UTTTBot::run() {
 	}
 }
 
+
+void mcUpdateScores(array<int, 9> &subscores, State &trialboard, Player &winner)
+{
+	for (int i = 0; i < 9; i++)
+	{
+		int x = getX(i);
+		int y = getY(i);
+
+		if (winner == Player::X)
+		{
+			if (trialboard.macroboard[x][y] == Player::X)
+			{
+				subscores[i]++;
+			}
+
+			if (trialboard.macroboard[x][y] == Player::O)
+			{
+				subscores[i]--;
+			}
+		}
+
+		if (winner == Player::O)
+		{
+			if (trialboard.macroboard[x][y] == Player::X)
+			{
+				subscores[i]--;
+			}
+
+			if (trialboard.macroboard[x][y] == Player::O)
+			{
+				subscores[i]++;
+			}
+		}
+	}
+
+
+	for (int i = 0; i < 9; i++)
+	{
+		scores[i] = scores[i] + subscores[i];
+	}
+}
+
+State UTTTBot::mcTrial(const State &board)
+{
+	State trialboard = board;
+	array<int, 9> subscores = { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+	Player winner;
+
+	vector<Move> moves = getMoves(trialboard);
+
+	while (moves.size() != 0)
+	{
+		trialboard = doMove(trialboard, moves[(rand() % moves.size())]);
+		moves = getMoves(trialboard);
+	}
+
+	winner = getWinner(trialboard);
+
+	mcUpdateScores(subscores, trialboard, winner);
+
+
+	return board;
+}
+
+Move UTTTBot::getBestMove(State &board)
+{
+	int highest = -9999;
+	int index = -1;
+
+	int dx, dy;
+	for (int i = 0; i < 9; i++)
+	{
+		int x = getX(i);
+		int y = getY(i);
+
+		if (scores[i] > highest && board.macroboard[x][y] == Player::None)
+		{
+			highest = scores[i];
+			index = i;
+			dx = x;
+			dy = y;
+		}
+	}
+
+	Move wut = { dx, dy };
+
+	return wut;
+}
+
+Move UTTTBot::mcMove(State &board)
+{
+	scores = { 0,0,0,0,0,0,0,0,0 };
+
+	for (int i = 0; i < 20; i++)
+	{
+		board = mcTrial(board);
+	}
+
+	return getBestMove(board);
+}
+
 void UTTTBot::move(int timeout) 
 {
 	// Do something more intelligent here than return a random move
-	std::vector<Move> moves = getMoves(state);
-	std::cout << "place_disc " << *select_move(moves.begin(), moves.end()) << std::endl;
+	//std::vector<Move> moves = getMoves(state);
+	Move theMove = mcMove(state);
+	//std::cout << "place_disc " << *select_move(moves.begin(), moves.end()) << std::endl;
+	std::cout << "place_disc " << theMove << std::endl;
 }
 
 void UTTTBot::update(std::string &key, std::string &value) {
