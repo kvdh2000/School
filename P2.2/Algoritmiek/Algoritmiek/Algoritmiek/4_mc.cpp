@@ -1,17 +1,19 @@
-#include "4.h"
+/*
+#include "ttt.h"
 #include <iostream>
 #include <algorithm>
 #include <map>
 
-
 using namespace std;
 
 unsigned const n_trials = 1000;
-unsigned const mc_match = 1;
-unsigned const mc_other = 1;
-array<int, 9> scores = { 0,0,0,0,0,0,0,0,0 };
+array<int, 9> scores = {0, 0, 0, 0, 0, 0, 0, 0, 0};
 
-enum class PlayerType { Human, Computer };
+enum class PlayerType
+{
+	Human,
+	Computer
+};
 
 void mcUpdateScores(array<int, 9> &subscores, State &trialboard, Player &winner)
 {
@@ -44,33 +46,10 @@ void mcUpdateScores(array<int, 9> &subscores, State &trialboard, Player &winner)
 		}
 	}
 
-
 	for (int i = 0; i < 9; i++)
 	{
 		scores[i] = scores[i] + subscores[i];
 	}
-}
-
-State mcTrial(const State &board)
-{
-	State trialboard = board;
-	array<int, 9> subscores = { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-	Player winner;
-
-	vector<Move> moves = getMoves(trialboard);
-	
-	while (moves.size() != 0) 
-	{
-		trialboard = doMove(trialboard, moves[(rand() % moves.size())]);
-		moves = getMoves(trialboard);
-	}
-
-	winner = getWinner(trialboard);
-
-	mcUpdateScores(subscores, trialboard, winner);
-
-
-	return board;
 }
 
 Move getBestMove(State &board)
@@ -92,9 +71,9 @@ Move getBestMove(State &board)
 
 Move mcMove(State &board, const Player &player)
 {
-	scores = { 0,0,0,0,0,0,0,0,0 };
+	scores = {0, 0, 0, 0, 0, 0, 0, 0, 0};
 
-	for (int i = 0; i < 20; i++)
+	for (int i = 0; i < 10000; i++)
 	{
 		board = mcTrial(board);
 	}
@@ -111,11 +90,10 @@ int main()
 	playerType[Player::O] = PlayerType::Computer;
 
 	State board =
-	{
-		Player::None, Player::None, Player::None,
-		Player::None, Player::None, Player::None,
-		Player::None, Player::None, Player::None
-	};
+			{
+					Player::None, Player::None, Player::None,
+					Player::None, Player::None, Player::None,
+					Player::None, Player::None, Player::None};
 	std::cout << board << std::endl;
 
 	std::vector<Move> moves = getMoves(board);
@@ -123,17 +101,17 @@ int main()
 	{
 		if (playerType[getCurrentPlayer(board)] == PlayerType::Human)
 		{
-			std::cout <<
-				"+-+-+-+" << std::endl <<
-				"|0|1|2|" << std::endl <<
-				"+-+-+-+" << std::endl <<
-				"|3|4|5|" << std::endl <<
-				"+-+-+-+" << std::endl <<
-				"|6|7|8|" << std::endl <<
-				"+-+-+-+" << std::endl <<
-				std::endl;
+			std::cout << "+-+-+-+" << std::endl
+								<< "|0|1|2|" << std::endl
+								<< "+-+-+-+" << std::endl
+								<< "|3|4|5|" << std::endl
+								<< "+-+-+-+" << std::endl
+								<< "|6|7|8|" << std::endl
+								<< "+-+-+-+" << std::endl
+								<< std::endl;
 			std::cout << "Enter a move ( ";
-			for (Move m : moves) std::cout << m << " ";
+			for (Move m : moves)
+				std::cout << m << " ";
 			std::cout << "): ";
 			Move m;
 			std::cin >> m;
@@ -150,3 +128,4 @@ int main()
 
 	return 0;
 }
+*/

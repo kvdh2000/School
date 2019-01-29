@@ -1,3 +1,3 @@
-﻿  4_mc.cpp
-d:\github\school\p2.2\algoritmiek\algoritmiek\algoritmiek\4_mc.cpp(107): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+﻿  5_ab.cpp
+d:\github\school\p2.2\algoritmiek\algoritmiek\algoritmiek\5_ab.cpp(107): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
   Algoritmiek.vcxproj -> D:\GitHub\School\P2.2\Algoritmiek\Algoritmiek\Debug\Algoritmiek.exe

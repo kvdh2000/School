@@ -92,11 +92,10 @@ Path bfs(const Graph &graph, const Vertex &start, std::function<bool(const Verte
 			{
 				n.push_back(*it);
 				queue.push_back(n);
+				visited.insert(*it);
 			}
 
 		}
-
-		visited.insert(last);
 	}
 	return Path();
 }

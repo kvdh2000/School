@@ -106,13 +106,9 @@ int UnaryNode::eval()
 		{
 			return (+opnd.eval());
 		}
-		//case '*': 
-		{
-			//return (*opnd.eval());
-		}
 		default:
 		{
-			cerr << "no operand" << endl;
+			cerr << "no operand1" << endl;
 			return 0;
 		}
 	}
@@ -137,19 +133,19 @@ int BinaryNode::eval()
 	future<int> right_result;
 	switch (op) {
 	case '-': {
-		left_result = std::async(launch::async, [this]() { return left.eval(); });
-		right_result = std::async(launch::async, [this]() { return right.eval(); });
-		//return (left.get() - right.get());
+		left_result = async(std::launch::async, std::bind(&Tree::eval, &this->left));
+		right_result = std::async(std::launch::async, std::bind(&Tree::eval, &this->right));
+		return (left_result.get() - right_result.get());
 	}
 	case '+': 
-		left_result = std::async(launch::async, [this]() { return left.eval(); });
-		right_result = std::async(launch::async, [this]() { return right.eval(); });
-		//return (left.eval() + right.eval());
-	case '*': 
-		//left_result = std::async(launch::async, [this]() { return left.eval(); });
-		//right_result = std::async(launch::async, [this]() { return right.eval(); });
-		return (left.eval() * right.eval());
-	default: cerr << "no operand" << endl;
+		left_result = std::async(std::launch::async, std::bind(&Tree::eval, &this->left));
+		right_result = std::async(std::launch::async, std::bind(&Tree::eval, &this->right));
+		return (left_result.get() + right_result.get());
+	case '*':
+		left_result = std::async(std::launch::async, std::bind(&Tree::eval, &this->left));
+		right_result = std::async(std::launch::async, std::bind(&Tree::eval, &this->right));
+		return (left_result.get() * right_result.get());
+	default: cerr << "no operand2" << endl;
 		return 0;
 	}
 }
