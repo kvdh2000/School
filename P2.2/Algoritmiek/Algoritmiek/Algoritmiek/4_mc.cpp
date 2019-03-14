@@ -1,4 +1,4 @@
-/*
+
 #include "ttt.h"
 #include <iostream>
 #include <algorithm>
@@ -50,6 +50,28 @@ void mcUpdateScores(array<int, 9> &subscores, State &trialboard, Player &winner)
 	{
 		scores[i] = scores[i] + subscores[i];
 	}
+}
+
+State mcTrial(const State &board)
+{
+	State trialboard = board;
+	array<int, 9> subscores = { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+	Player winner;
+
+	vector<Move> moves = getMoves(trialboard);
+
+	while (moves.size() != 0)
+	{
+		trialboard = doMove(trialboard, moves[(rand() % moves.size())]);
+		moves = getMoves(trialboard);
+	}
+
+	winner = getWinner(trialboard);
+
+	mcUpdateScores(subscores, trialboard, winner);
+
+
+	return board;
 }
 
 Move getBestMove(State &board)
@@ -128,4 +150,3 @@ int main()
 
 	return 0;
 }
-*/

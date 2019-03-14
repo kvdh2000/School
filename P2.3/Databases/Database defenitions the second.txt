@@ -1,0 +1,89 @@
+CREATE TABLE Speler
+(
+spelerID int NOT NULL,
+naam varchar(40),
+adres varchar(100),
+geboorteJaar int,
+jaarToetreding int,
+PRIMARY KEY (spelerID)
+);
+
+CREATE TABLE WedstrijdSpeler
+(
+geboorteJaar int NOT NULL,
+jaarToetreding int NOT NULL,
+PRIMARY KEY (bondsNummer)
+);
+
+CREATE TABLE Boetes
+(
+bedrag int NOT NULL,
+toelichting int NOT NULL,
+boeteNummer int NOT NULL,
+bondsNummerint NOT NULL,
+PRIMARY KEY (boetenummer),
+FOREIGN KEY (SportverenigingID) REFERENCES Sportvereniging(SportverenigingID)
+);
+
+CREATE TABLE Sportvereniging
+(
+sportverenigingID varchar NOT NULL,
+PRIMARY KEY (boetenummer)
+);
+
+CREATE TABLE Trainer
+(
+teamCode int NOT NULL,
+spelerID int NOT NULL,
+PRIMARY KEY (spelerID,teamcode),
+FOREIGN KEY (spelerID) REFERENCES Speler(spelerID),
+FOREIGN KEY (teamCode) REFERENCES Team(teamCode)
+);
+
+CREATE TABLE Scheidsrechter
+(
+wedstrijdNummer int NOT NULL,
+spelerID int NOT NULL,
+PRIMARY KEY (spelerID,wedstrijdNummer),
+FOREIGN KEY (spelerID) REFERENCES Speler(spelerID),
+FOREIGN KEY (wedstrijdNummer) REFERENCES Wedstrijd(wedstrijdNummer)
+);
+
+CREATE TABLE Team
+(
+teamCode int NOT NULL,
+spelerID int NOT NULL,
+PRIMARY KEY (teamcode)
+);
+
+CREATE TABLE Wedstrijd
+(
+thuisTeam int NOT NULL,
+uitTeam int NOT NULL,
+scheidsRechter int NOT NULL,
+adres int NOT NULL,
+tijdstip time,
+wedstrijdNummer int NOT NULL,
+datum date,
+PRIMARY KEY (wedstrijdNummer),
+FOREIGN KEY (adres) REFERENCES Sportzaal(adres)
+);
+
+CREATE TABLE TrainingRooster
+(
+dag date NOT NULL,
+tijd time NOT NULL,
+duur int NOT NULL,
+adres varchar NOT NULL,
+PRIMARY KEY (teamcode),
+FOREIGN KEY (adres) REFERENCES Sportzaal(adres)
+
+);
+
+CREATE TABLE Sportzaal
+(
+naam varchar,
+adres varchar NOT NULL,
+telefoonNummer int,
+PRIMARY KEY (adres)
+);

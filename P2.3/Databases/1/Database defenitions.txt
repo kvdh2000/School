@@ -1,0 +1,71 @@
+CREATE TABLE Agent
+(
+AgentID int NOT NULL,
+Naam varchar(40) NOT NULL,
+Adres varchar(100) NOT NULL,
+PRIMARY KEY (AgentID)
+);
+
+CREATE TABLE Klant
+(
+KlantID int NOT NULL,
+Naam varchar(40) NOT NULL,
+Adres varchar(100) NOT NULL,
+PRIMARY KEY (KlantID),
+);
+
+CREATE TABLE Luchtpost
+(
+LPID int NOT NULL,
+Luchtvaartmaatschappij varchar(40) NOT NULL,
+Vluchtnummer int NOT NULL,
+Vertrekdatum date NOT NULL,
+PRIMARY KEY (LPID)
+);
+
+CREATE TABLE Verzending
+(
+VerzendingNR int NOT NULL,
+Naam varchar(40) NOT NULL,
+Adres varchar(100) NOT NULL,
+Kostprijs float NOT NULL,
+Lucht varchar(1) NOT NULL,
+Vluchtnummer int,
+PRIMARY KEY (VerzendingNR),
+FOREIGN KEY (AgentID) REFERENCES Agent(AgentID),
+FOREIGN KEY (LPID) REFERENCES Vlucht(LPID)
+);
+
+CREATE TABLE Documentpakketje
+(
+VerzendingNR int NOT NULL,
+Aantal int NOT NULL,
+PRIMARY KEY (VerzendingID),
+FOREIGN KEY (VerzendingID) REFERENCES Verzending(VerzendingID)
+);
+
+CREATE TABLE Document
+(
+VerzendingID int NOT NULL,
+Auteur varchar(40),
+Titel varchar(60) NOT NULL,
+PRIMARY KEY (VerzendingID),
+FOREIGN KEY (VerzendingID) REFERENCES DocumentPakket(VerzendingID)
+);
+
+CREATE TABLE GoederenPakket
+(
+VerzendingID int NOT NULL,
+Gewicht float NOT NULL,
+PRIMARY KEY (VerzendingID),
+FOREIGN KEY (VerzendingID) REFERENCES Verzending(VerzendingID)
+);
+
+CREATE TABLE ItemType
+(
+VerzendingID int NOT NULL,
+Type varchar(40) NOT NULL,
+Aantal int NOT NULL,
+PRIMARY KEY (VerzendingID),
+FOREIGN KEY (VerzendingID) REFERENCES GoederenPakket(VerzendingID)
+); 

@@ -152,6 +152,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
+    <ClInclude Include="ttt.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="1.cpp">
@@ -164,6 +165,8 @@
     <ClCompile Include="4.cpp" />
     <ClCompile Include="5.cpp" />
     <ClCompile Include="6.cpp" />
+    <ClCompile Include="CCMCttt.cpp" />
+    <ClCompile Include="ttt.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

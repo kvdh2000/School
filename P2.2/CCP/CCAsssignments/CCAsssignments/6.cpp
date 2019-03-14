@@ -1,4 +1,4 @@
-
+/*
 #include <thread>
 #include <mutex>
 #include <iostream>
@@ -8,11 +8,7 @@
 
 class ThreadPool;
 
-// forward declare
 std::condition_variable ready_cv;
-//std::condition_variable processed_cv;
-//std::atomic<bool> ready(false);
-//std::atomic<bool> processed(false);
 
 class Worker {
 public:
@@ -41,10 +37,6 @@ void Worker::operator()()
 {
 	std::function<void()> task;
 
-	// in real life you need a variable here like while(!quitProgram) or your
-	// program will never return. Similarly, in real life always use `wait_for`
-	// instead of `wait` so that periodically you check to see if you should
-	// exit the program
 	while (true)
 	{
 		std::unique_lock<std::mutex> locker(pool.queue_mutex);
@@ -57,8 +49,6 @@ void Worker::operator()()
 			pool.tasks.pop_front();
 			locker.unlock();
 			task();
-			//processed = true;
-			//processed_cv.notify_one();
 		}
 	}
 }
@@ -71,7 +61,7 @@ ThreadPool::ThreadPool(size_t threads) : stop(false)
 
 ThreadPool::~ThreadPool()
 {
-	stop = true; // stop all threads
+	stop = true; 
 	ready_cv.notify_all();
 	for (auto &thread : workers)
 		thread.join();
@@ -82,10 +72,7 @@ void ThreadPool::enqueue(F f)
 {
 	std::unique_lock<std::mutex> lock(queue_mutex);
 	tasks.push_back(std::function<void()>(f));
-	//processed = false;
-	//ready = true;
 	ready_cv.notify_one();
-	//processed_cv.wait(lock, [] { return processed.load(); });
 }
 
 int main()
@@ -97,3 +84,4 @@ int main()
 	std::cin.ignore();
 	return 0;
 }
+*/
