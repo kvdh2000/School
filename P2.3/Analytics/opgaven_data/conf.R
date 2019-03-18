@@ -1,7 +1,7 @@
 conf <- function(n, d) 
 {
-  predicttest= predict (model, type="response", newdata = test)
-  t=table(n, predicttest > d)
+  predicttest= predict (tree2,newdata = test)
+  t=table(n, predicttest[,2] > d)
   
   TN=t[1]
   FP=t[2]
