@@ -17,21 +17,21 @@ int main()
 
 	cout << "Choice: ";
 	cin >> choice;
-	cout << "You picked: " << endl;
+	cout << "You picked: ";
 
-	difficulty myDifficulty = (difficulty)choice;
+	//difficulty myDifficulty = (difficulty)choice;
 
 	switch (choice)
 	{
-	case Easy:
-		choice2 = "Easy";
-		break;
-	case Normal:
-		choice2 = "Normal";
-		break;
-	case Hard:
-		choice2 = "Hard";
-		break;
+		case Easy:
+			choice2 = "Easy";
+			break;
+		case Normal:
+			choice2 = "Normal";
+			break;
+		case Hard:
+			choice2 = "Hard";
+			break;
 	}
 
 	cout << choice2 << endl;
