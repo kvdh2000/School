@@ -8,7 +8,7 @@ def op11():
     img = cv2.imread('D:\GitHub\School\P2.4\CV\opencv-logo-white.png')
     cv2.imshow('logo', img)
     k = cv2.waitKey(0)
-    print k
+    print (k)
     cv2.destroyAllWindows()
 
 def op12():
@@ -75,7 +75,7 @@ def op14():
     cv2.imshow('res3', res3)
 
     k = cv2.waitKey(0)
-    print k
+    print (k)
     cv2.destroyAllWindows()
 
 def op21():
@@ -100,7 +100,7 @@ def op21():
     cv2.imshow('logo',img)
     
     k = cv2.waitKey(0)
-    print k
+    print (k)
     cv2.destroyAllWindows()
 
 def op31():
@@ -119,7 +119,7 @@ def op31():
 
     cv2.imshow('img',img)
     cv2.waitKey(0)
-    print k
+    print (k)
     cv2.destroyAllWindows()
 
 def op41():
@@ -143,7 +143,7 @@ def op41():
         while child >= 0:
             holes += cv2.contourArea(contours[child])
             child = hierarchy[child][0]
-        print area, holes, factor
+        print (area, holes, factor)
         if area > 3500:
             cv2.drawContours(img, [cnt], -1, (0,255,255), 3)
         elif factor < 0.8:
@@ -155,7 +155,7 @@ def op41():
             
     cv2.imshow('img',img)
     cv2.waitKey(0)
-    print k
+    print (k)
     cv2.destroyAllWindows()
 
 def op51():
@@ -188,6 +188,7 @@ def op51():
                 if area > 100:
                     if factor > 0.5 :
                          myEyes += 1
+                         cv2.drawContours(img, [cnt2], -1, (0,255,255), 3)
                          
         diceRolls.append(myEyes)
         diceRolls.sort()
